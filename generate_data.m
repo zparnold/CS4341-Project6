@@ -12,7 +12,7 @@ sampdata = cell(num_samples,N);
 for n=1:num_samples
  samp = sample_bnet(bnet);
  % keep all the sampled data
- sampdata(n,6:N) = samp(6:N);
+ sampdata(n,1:N) = samp(1:N);
 end
 
 

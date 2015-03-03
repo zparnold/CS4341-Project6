@@ -1,4 +1,4 @@
-function fit_parameters(bnet, sampdata)
+function [learn_guess,learn_slip] = fit_parameters(bnet, sampdata, init_guess, init_slip)
 
 % values of the ground truth parameters that generate the data
 t_prior = CPD_to_CPT(bnet.CPD{1});
@@ -13,11 +13,11 @@ t_guess = t_emit(3);
 t_slip = t_emit(2);
 
 % intial values for EM parameter learning
-i_prior = rand;
-i_learn = rand;
+i_prior = 0.30;
+i_learn = 0.14;
 i_forget = 0;
-i_guess = rand;
-i_slip = rand;
+i_guess = init_guess;
+i_slip = init_slip;
 
 % prior
 bnet.CPD{1} = tabular_CPD(bnet, bnet.rep_of_eclass(1), 'CPT', [1-i_prior i_prior]);
@@ -62,3 +62,7 @@ fprintf('true params:\t prior: %.3f, learn: %.3f, forget: %.3f, guess: %.3f, sli
 
 MAE = mean([abs(f_prior-t_prior) abs(f_learn-t_learn) abs(f_forget-t_forget) abs(f_guess-t_guess) abs(f_slip-t_slip)]);
 fprintf('\nMean Absolute Error of parameter learning: %.4f\n',MAE);
+
+%returns values
+learn_guess = f_guess; 
+learn_slip = f_slip;
