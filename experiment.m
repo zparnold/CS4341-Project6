@@ -1,5 +1,5 @@
 bnet = make_knowledge_model;
-samples = generate_data(bnet, 100);
+samples = generate_data(bnet, 1000);
 f_guess = zeros(6, 6);
 f_slip = zeros(6, 6);
 figure;
